@@ -4,66 +4,113 @@
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
 
+#define LINHA 10
+#define COLUNA 10
+
 int main() {
     // Nível Novato - Posicionamento dos Navios
     // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
 
     char linhaA[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-    int tabuleiro[10][10] = {
+    int tabuleiro[LINHA][COLUNA] = {
         {0,0,0,0,0,0,0,0,0,0},
+        {0,3,0,0,0,0,3,0,0,0},
+        {0,0,3,0,0,0,3,0,0,0},
+        {0,0,0,3,0,0,3,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0},
+        {0,0,3,3,3,0,0,3,0,0},
         {0,0,0,0,0,0,3,0,0,0},
-        {0,0,0,0,0,0,3,0,0,0},
-        {0,0,0,0,0,0,3,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,3,3,3,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,3,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0}
     };
 
+
+    // Nível Mestre - Habilidades Especiais com Matrizes
+    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
+
+    int cone [3][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1}
+    };
+
+    int octaedro [3][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {0, 0, 1, 0, 0}
+    };  
+
+    int cruz [3][5] = {
+        {0, 0, 1, 0, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 1, 0, 0}
+    };  
+
+
+    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
+    
+    //Posicionamento cone
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (cone[i][j] == 1) {
+                int linha = 0 + i; 
+                int coluna = 0 + j; 
+                if (linha < LINHA && coluna < COLUNA) {
+                    tabuleiro[linha][coluna] = 5; 
+                }
+            }
+        }
+    }
+
+
+    //Posicionamento octaedro
+
+     for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (octaedro[i][j] == 1) {
+                int linha = 5 + i; 
+                int coluna = 3 + j; 
+                if (linha < LINHA && coluna < COLUNA) {
+                    tabuleiro[linha][coluna] = 5; 
+                }
+            }
+        }
+    }
+
+
+
+   //Posicionamento cruz
+        
+   for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (cruz[i][j] == 1) {
+                int linha = 3 + i; 
+                int coluna = 3 + j; 
+                if (linha < LINHA && coluna < COLUNA) {
+                    tabuleiro[linha][coluna] = 5; 
+                }
+            }
+        }
+    }
+   
+    
+   
     printf("Jogo Batalha Naval\n");
     printf("Tabuleiro:\n");
     printf("   ");
-    for (int j = 0; j < 10; j++) {
+    for (int j = 0; j < LINHA; j++) {
         printf(" %c", linhaA[j]);
     }
     printf("\n");
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < LINHA; i++) {
         printf("%2d ", i + 1);
-        for (int j = 0; j < 10; j++) {
+        for (int j = 0; j < COLUNA ; j++) {
             printf(" %d", tabuleiro[i][j]);
         }
         printf("\n");
     }
-
-
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
 
     return 0;
 }
